@@ -1,29 +1,31 @@
-USE sakila;
+### Instructions - Lab Lesson 2.5 (Sakila) 
 
-SHOW FULL TABLES;
-SELECT COUNT(*) FROM film;
-SELECT COUNT(*) FROM film_text;
-SELECT * from sakila.actor;
-SELECT * from sakila.film_actor;
-SELECT * from sakila.category;
-SELECT * from sakila.film;
-SELECT * from sakila.language;
-SELECT * from sakila.inventory;
-SELECT * from sakila.film_category;
-SELECT * from sakila.store;
-SELECT * from sakila.address;
-SELECT * from sakila.staff;
-SELECT * from sakila.payment;
-SELECT * from sakila.rental;
-SELECT * from sakila.customer;
-SELECT * from sakila.customer;
-SELECT * from sakila.country;
+### Select all the actors with the first name ‘Scarlett’.
 
-SELECT title from film;
+Select *
+from actor
+where first_name = 'Scarlett';
 
-select name as 'language' from language;
+### How many films (movies) are available for rent and how many films have been rented?
+SELECT COUNT(DISTINCT(inventory_id))
+FROM inventory;
 
-SELECT COUNT(store_id) from store;
-SELECT COUNT(staff_id) from staff;
+SELECT COUNT(DISTINCT(rental_id))
+FROM rental;
 
-select first_name from actor;
+### What are the shortest and longest movie duration? Name the values max_duration and min_duration.
+### What's the average movie duration expressed in format (hours, minutes)?
+SELECT MAX(length) as max_duration, MIN(length) as min_duration
+FROM film;
+SELECT sec_to_time(avg(length)*60) as average_duration 
+FROM film;
+
+### What's the average movie duration expressed in format (hours, minutes)?
+SELECT sec_to_time(avg(length)*60) as average_duration 
+FROM film;
+
+SELECT FLOOR(AVG(length)/60), ROUND(AVG(length)%60) as Minutes
+FROM film;
+
+SELECT time_format(sec_to_time(round(avg(length)*60)), '%H:%i') from film;
+
